@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Private Stream Access</title>
 <style>
   body {
@@ -24,26 +24,36 @@
 </style>
 </head>
 <body>
-<h2>Enter Your Access Token</h2>
-<input type="password" id="tokenInput" placeholder="Access token">
-<button onclick="checkToken()">Submit</button>
+  <h2>Enter Your Access Token</h2>
+  <input type="password" id="tokenInput" placeholder="Access token" />
+  <button onclick="checkToken()">Submit</button>
 
-<div id="content">
-  ✅ Access granted!<br>
-  <a href="YOUR_PRIVATE_YOUTUBE_LINK" target="_blank">Go to Stream</a>
-</div>
+  <div id="content">
+    ✅ Access granted!<br />
+    <a href="MAKE SURE TO PUT SOMETHING NEW" target="_blank" rel="noopener noreferrer">Go to Stream</a>
+  </div>
 
 <script>
-  // List of one-time tokens (you can change/remove tokens once used)
-  const validTokens = ["abc123", "def456", "ghi789"];
+  // List of valid tokens you generate and share
+  const validTokens = ["daddydonghae", "promisetobelieve", "gulliverispeak"];
 
   function checkToken() {
     const entered = document.getElementById('tokenInput').value.trim();
-    if (validTokens.includes(entered)) {
-      document.getElementById('content').style.display = 'block';
-    } else {
+    if (!validTokens.includes(entered)) {
       alert("Invalid token. Please check your access code.");
+      return;
     }
+    // Check if token already used on this browser
+    let usedTokens = JSON.parse(localStorage.getItem('usedTokens') || "[]");
+    if (usedTokens.includes(entered)) {
+      alert("This token has already been used on this device.");
+      return;
+    }
+    // Mark token as used
+    usedTokens.push(entered);
+    localStorage.setItem('usedTokens', JSON.stringify(usedTokens));
+    // Show the content
+    document.getElementById('content').style.display = 'block';
   }
 </script>
 </body>
